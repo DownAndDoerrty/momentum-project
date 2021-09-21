@@ -1,16 +1,16 @@
 # momentum-project
 Project setup
 ## Backend
-- [ ] Postgres Database
-- [ ] Prisma
-    - [ ] Models/Schema*
-    - [ ] Seed
-- [ ] GraphQL
-- [ ] Express Server
+- [X] Postgres Database
+- [X] Prisma
+    - [X] Models/Schema*
+    - [X] Seed
+- [X] GraphQL
+- [X] Express Server
     - [ ] JWT
     - [ ] Endpoints
         - [ ] `/login`
-        - [ ] `/graphql`
+        - [X] `/graphql`
 
 ## Frontend
 - [ ] UI Layout
@@ -22,7 +22,7 @@ Project setup
 
 ## GraphQL
 - [ ] Mutations
-    - [ ] Create user
+    - [X] Create user
         - `firstName`
         - `lastName`
         - `email`
@@ -42,9 +42,9 @@ Project setup
     - [ ] Get list of all users
     - [ ] Get single user by `userId`
     - [ ] Get list of all campaigns
-    - [ ] Get single campaign by `campaignId`
-    - [ ] Get list of all donations by `campaignId`
-    - [ ] Get single donation by `donorUserId`
+    - [X] Get single campaign by `campaignId`
+    - [X] Get list of all donations by `campaignId`
+    - [X] Get single donation by `donorUserId`
 
 
 
@@ -53,27 +53,31 @@ Project setup
 *Prisma Models/Schema
 ```
 model Campaign {
-  campaignId          Int      @id @default(autoincrement())
+  id                  Int        @id @default(autoincrement())
   campaignOwnerId     Int
   campaignName        String
   campaignDescription String
   campaignPictureURL  String
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-  campaignOwner       User     @relation(fields: [campaignOwnerId], references: [userId])
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+  campaignOwner       User       @relation(fields: [campaignOwnerId], references: [id])
+  donations           Donation[] @relation
 }
+
 model Donation {
-  donationId     Int      @id @default(autoincrement())
+  id             Int      @id @default(autoincrement())
   donorUserId    Int
   campaignId     Int
   donationAmount Decimal
   donationNote   String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  donor          User     @relation(fields: [donorUserId], references: [userId])
+  donor          User     @relation(fields: [donorUserId], references: [id])
+  campaign       Campaign @relation(fields: [campaignId], references: [id])
 }
+
 model User {
-  userId            Int        @id @default(autoincrement())
+  id                Int        @id @default(autoincrement())
   firstName         String
   lastName          String
   email             String
