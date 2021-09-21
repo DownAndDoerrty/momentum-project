@@ -13,14 +13,14 @@ const expressPlayground =
   require("graphql-playground-middleware-express").default;
 
 const prisma = new PrismaClient({
-  log: ["query"],
+  log: ["query", "info"],
 });
 const port = 4000;
 
 const typeDefs = `
     scalar Date
     type Campaign {
-        campaignId:          Int       
+        id:                  Int       
         campaignOwnerId:     Int
         campaignName:        String
         campaignDescription: String
@@ -32,7 +32,7 @@ const typeDefs = `
     }
     
     type Donation {
-        donationId:     Int
+        id:             Int
         donorUserId:    Int
         campaignId:     Int
         donationAmount: Float
@@ -44,7 +44,7 @@ const typeDefs = `
     }
     
     type User {
-        userId:            Int
+        id:                Int
         firstName:         String
         lastName:          String
         email:             String
@@ -72,15 +72,37 @@ const resolvers = {
   },
   Campaign: {
     donations: (parent: any) => {
-      return prisma.campaign
-        .findUnique({
-          where: { campaignId: parent?.campaignId },
-        })
-        .donations();
+      return prisma.donation.findMany({
+        where: { campaignId: parent?.id },
+      });
     },
     campaignOwner: (parent: any) => {
       return prisma.user.findUnique({
-        where: { userId: parent?.campaignOwnerId },
+        where: { id: parent?.campaignOwnerId },
+      });
+    },
+  },
+  User: {
+    donations: (parent: any) => {
+      return prisma.donation.findMany({
+        where: { donorUserId: parent?.id },
+      });
+    },
+    ownedCampaigns: (parent: any) => {
+      return prisma.campaign.findMany({
+        where: { campaignOwnerId: parent?.id },
+      });
+    },
+  },
+  Donation: {
+    donor: (parent: any) => {
+      return prisma.user.findUnique({
+        where: { id: parent?.donorUserId },
+      });
+    },
+    campaign: (parent: any) => {
+      return prisma.campaign.findUnique({
+        where: { id: parent?.campaignId },
       });
     },
   },
@@ -107,12 +129,13 @@ export const schema = makeExecutableSchema({ resolvers, typeDefs });
 const app = express();
 
 app.use(
-"/graphql",
+  "/graphql",
   // jwt({ secret: JWT_SECRET, algorithms: ["HS256"], credentialsRequired: false }),
   // authenticationMiddleware,
   graphqlHTTP({
     schema,
-  }));
+  })
+);
 
 app.get(
   "/playground",

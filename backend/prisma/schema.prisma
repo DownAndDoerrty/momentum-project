@@ -11,31 +11,31 @@ generator client {
 }
 
 model Campaign {
-  campaignId          Int        @id @default(autoincrement())
+  id                  Int        @id @default(autoincrement())
   campaignOwnerId     Int
   campaignName        String
   campaignDescription String
   campaignPictureURL  String
   createdAt           DateTime   @default(now())
   updatedAt           DateTime   @updatedAt
-  campaignOwner       User       @relation(fields: [campaignOwnerId], references: [userId])
+  campaignOwner       User       @relation(fields: [campaignOwnerId], references: [id])
   donations           Donation[] @relation
 }
 
 model Donation {
-  donationId     Int      @id @default(autoincrement())
+  id             Int      @id @default(autoincrement())
   donorUserId    Int
   campaignId     Int
   donationAmount Decimal
   donationNote   String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  donor          User     @relation(fields: [donorUserId], references: [userId])
-  campaign       Campaign @relation(fields: [campaignId], references: [campaignId])
+  donor          User     @relation(fields: [donorUserId], references: [id])
+  campaign       Campaign @relation(fields: [campaignId], references: [id])
 }
 
 model User {
-  userId            Int        @id @default(autoincrement())
+  id                Int        @id @default(autoincrement())
   firstName         String
   lastName          String
   email             String
