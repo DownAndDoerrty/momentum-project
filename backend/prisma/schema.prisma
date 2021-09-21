@@ -11,15 +11,15 @@ generator client {
 }
 
 model Campaign {
-  campaignId          Int      @id @default(autoincrement())
+  campaignId          Int        @id @default(autoincrement())
   campaignOwnerId     Int
   campaignName        String
   campaignDescription String
   campaignPictureURL  String
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-  campaignOwner       User     @relation(fields: [campaignOwnerId], references: [userId])
-  donations Donation[] @relation()
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+  campaignOwner       User       @relation(fields: [campaignOwnerId], references: [userId])
+  donations           Donation[] @relation
 }
 
 model Donation {
@@ -31,7 +31,7 @@ model Donation {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   donor          User     @relation(fields: [donorUserId], references: [userId])
-  campaign  Campaign @relation(fields: [campaignId], references: [campaignId])
+  campaign       Campaign @relation(fields: [campaignId], references: [campaignId])
 }
 
 model User {

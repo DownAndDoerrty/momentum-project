@@ -16,25 +16,25 @@ const prisma = new PrismaClient({
 });
 const port = 4000;
 
+app
+  .use
+  // "/graphql",
+  // jwt({ secret: JWT_SECRET, algorithms: ["HS256"], credentialsRequired: false }),
+  // authenticationMiddleware,
+  // graphqlHTTP({
+  //   schema,
+  // })
+  ();
 
-app.use(
-    // "/graphql",
-    // jwt({ secret: JWT_SECRET, algorithms: ["HS256"], credentialsRequired: false }),
-    // authenticationMiddleware,
-    // graphqlHTTP({
-    //   schema,
-    // })
+app.get(
+  "/playground",
+  expressPlayground({
+    endpoint: "/graphql/",
+  })
+);
+
+app.listen(port, () => {
+  console.log(
+    `Serving the GraphQL Playground on http://localhost:${port}/playground`
   );
-  
-  app.get(
-    "/playground",
-    expressPlayground({
-      endpoint: "/graphql/",
-    })
-  );
-  
-  app.listen(port, () => {
-    console.log(
-      `Serving the GraphQL Playground on http://localhost:${port}/playground`
-    );
-  });
+});

@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "The Tax Break System",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,12 +17,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@graphql-tools/schema": "^8.2.0",
     "@prisma/client": "^3.1.1",
-    "express": "^4.17.1"
+    "@typescript-eslint/parser": "^4.31.2",
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.6.0"
   },
   "devDependencies": {
     "@types/node": "^16.9.4",
+    "@typescript-eslint/eslint-plugin": "^4.31.2",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "nodemon": "^2.0.12",
+    "prettier": "^2.4.1",
+    "prettier-eslint": "^13.0.0",
     "prisma": "^3.1.1",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"

@@ -35,9 +35,9 @@ async function main() {
     }});
     const c1 = await prisma.campaign.create({ data: {
         campaignOwnerId: p1.userId,
-        campaignName: "Chris' Campaign",
-        campaignDescription: "Chris' Donation Campaign",
-        campaignPictureURL: "",
+        campaignName: "Android 4 Lyfe",
+        campaignDescription: "Androids never die they just decompose",
+        campaignPictureURL: "https://cdn.mos.cms.futurecdn.net/5NyzBxijspGUiFyCiz9F4-1024-80.jpg.webp",
     }});
     const c2 = await prisma.campaign.create({ data: {
         campaignOwnerId: p2.userId,
