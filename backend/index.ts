@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 import express, { NextFunction, Request, Response } from "express";
 import { GraphQLScalarType, Kind } from "graphql";
 import { graphqlHTTP } from "express-graphql";
@@ -58,6 +58,15 @@ const typeDefs = `
     type Query {
         getCampaignDonations(campaignId: Int!): [Donation]
     }
+    type Mutation {
+        createUser(
+            firstName:         String
+            lastName:          String
+            email:             String
+            passwordHash:      String
+            profilePictureURL: String
+        ): User
+    }
 `;
 
 const resolvers = {
@@ -69,6 +78,16 @@ const resolvers = {
         },
       });
     },
+  },
+  Mutation: {
+    createUser: async (
+        _: any,
+        data: Omit<User, "updatedAt" | "createdAt" | "id">
+      ) => {
+        return await prisma.user.create({
+          data
+        });
+      },
   },
   Campaign: {
     donations: (parent: any) => {
