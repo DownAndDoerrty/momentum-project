@@ -124,23 +124,10 @@
             "tsConfig": [
               "tsconfig.app.json",
               "tsconfig.spec.json",
-              "e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
             ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "tax-breaker:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "tax-breaker:serve:production"
-            }
           }
         }
       }
