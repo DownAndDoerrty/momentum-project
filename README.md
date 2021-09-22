@@ -38,7 +38,7 @@ Project setup
         - `campaignName`
         - `campaignDescription`
         - `campaignPictureURL`
-- [X] Queries 
+- [X] Queries
     - [X] Get list of all users
     - [X] Get single user by `userId`
     - [X] Get list of all campaigns
@@ -90,3 +90,7 @@ model User {
   ownedCampaigns    Campaign[] @relation
 }
 ```
+
+## Commands
+
+- Generate ESLint Cache `npx eslint . --cache --fix --ext .ts,.js`
