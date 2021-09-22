@@ -34,110 +34,110 @@ async function main() {
         profilePictureURL: "https://avatars.githubusercontent.com/u/221605?v=4"
     }});
     const c1 = await prisma.campaign.create({ data: {
-        campaignOwnerId: p1.userId,
+        campaignOwnerId: p1.id,
         campaignName: "Android 4 Lyfe",
         campaignDescription: "Androids never die they just decompose",
         campaignPictureURL: "https://cdn.mos.cms.futurecdn.net/5NyzBxijspGUiFyCiz9F4-1024-80.jpg.webp",
     }});
     const c2 = await prisma.campaign.create({ data: {
-        campaignOwnerId: p2.userId,
+        campaignOwnerId: p2.id,
         campaignName: "Save the Whales",
         campaignDescription: "awhoooooOOOOooooooOOOOoooo",
         campaignPictureURL: "https://i2.wp.com/whalescientists.com/wp-content/uploads/2020/10/OC_Slide_2_07.jpg?fit=980%2C654&ssl=1",
     }});
     const c3 = await prisma.campaign.create({ data: {
-        campaignOwnerId: p3.userId,
+        campaignOwnerId: p3.id,
         campaignName: "Eliminate the Whales",
         campaignDescription: "The whales have ruled these seas for far too long.",
         campaignPictureURL: "http://i.cdn-surfline.com/fishtrack/2015/Editorial/10_Oct/Harpoon/Harpoon_Tips_01.jpg",
     }});
     const c4 = await prisma.campaign.create({ data: {
-        campaignOwnerId: p4.userId,
+        campaignOwnerId: p4.id,
         campaignName: "TMUX Awareness",
         campaignDescription: "VSCode will pay for its transgressions",
         campaignPictureURL: "https://www.hamvocke.com/assets/img/uploads/tmux.png",
     }});
     await prisma.donation.create({ data: {
-        donorUserId: p1.userId,
-        campaignId: c1.campaignId,
+        donorUserId: p1.id,
+        campaignId: c1.id,
         donationAmount: 1000000,
         donationNote: "Just getting this baby started",
     }});
     await prisma.donation.create({ data: {
-        donorUserId: p2.userId,
-        campaignId: c2.campaignId,
+        donorUserId: p2.id,
+        campaignId: c2.id,
         donationAmount: 0.25,
         donationNote: "A pity quarter",
     }});
     await prisma.donation.create({ data: {
-        donorUserId: p3.userId,
-        campaignId: c3.campaignId,
+        donorUserId: p3.id,
+        campaignId: c3.id,
         donationAmount: 100,
         donationNote: "Chump change",
     }});
     await prisma.donation.create({ data: {
-        donorUserId: p4.userId,
-        campaignId: c4.campaignId,
+        donorUserId: p4.id,
+        campaignId: c4.id,
         donationAmount: 23456,
         donationNote: "My favorite cause!",
     }});
     await prisma.donation.create({ data: {
-        donorUserId: p1.userId,
-        campaignId: c1.campaignId,
+        donorUserId: p1.id,
+        campaignId: c1.id,
         donationAmount: 430,
         donationNote: "All I can spare",
     }});
     await prisma.donation.create({ data: {
-        donorUserId: p2.userId,
-        campaignId: c2.campaignId,
+        donorUserId: p2.id,
+        campaignId: c2.id,
         donationAmount: 27654000,
         donationNote: "A whale of a donation",
     }});
     await prisma.donation.create({ data: {
-        donorUserId: p4.userId,
-        campaignId: c4.campaignId,
+        donorUserId: p4.id,
+        campaignId: c4.id,
         donationAmount: 250,
         donationNote: "Weirdly, I've been looking to spend money on this exact thing!",
     }});
     await prisma.donation.create({ data: {
-        donorUserId: p1.userId,
-        campaignId: c1.campaignId,
+        donorUserId: p1.id,
+        campaignId: c1.id,
         donationAmount: 80000,
         donationNote: "Hoping they get more harpoons!",
     }});
     await prisma.donation.create({ data: {
-        donorUserId: p3.userId,
-        campaignId: c3.campaignId,
+        donorUserId: p3.id,
+        campaignId: c3.id,
         donationAmount: 95000000,
         donationNote: "Funneling my money to the causes I care about most",
     }});
     await prisma.donation.create({ data: {
-        donorUserId: p4.userId,
-        campaignId: c4.campaignId,
+        donorUserId: p4.id,
+        campaignId: c4.id,
         donationAmount: 4500000,
         donationNote: "Just here for the drama!",
     }});
     await prisma.donation.create({ data: {
-        donorUserId: p1.userId,
-        campaignId: c1.campaignId,
+        donorUserId: p1.id,
+        campaignId: c1.id,
         donationAmount: 8700,
         donationNote: "I heard TMUX does Habitat for Humanity in its free time!",
     }});
     await prisma.donation.create({ data: {
-        donorUserId: p2.userId,
-        campaignId: c2.campaignId,
+        donorUserId: p2.id,
+        campaignId: c2.id,
         donationAmount: 900,
         donationNote: "TMUX saved my dog from a burning building!",
     }});
     await prisma.donation.create({ data: {
-        donorUserId: p3.userId,
-        campaignId: c3.campaignId,
+        donorUserId: p3.id,
+        campaignId: c3.id,
         donationAmount: 200,
         donationNote: "TMUX helped me carry my groceries inside once!",
     }});
     await prisma.donation.create({ data: {
-        donorUserId: p4.userId,
-        campaignId: c4.campaignId,
+        donorUserId: p4.id,
+        campaignId: c4.id,
         donationAmount: 1000002300000,
         donationNote: "TMUX is everything!",
     }});

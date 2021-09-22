@@ -1,4 +1,4 @@
-import { PrismaClient, User } from "@prisma/client";
+import { Campaign, Donation, PrismaClient, User } from "@prisma/client";
 import express, { NextFunction, Request, Response } from "express";
 import { GraphQLScalarType, Kind } from "graphql";
 import { graphqlHTTP } from "express-graphql";
@@ -66,6 +66,20 @@ const typeDefs = `
             passwordHash:      String
             profilePictureURL: String
         ): User
+
+        createDonation(
+            donorUserId:         Int
+            campaignId:          Int
+            donationAmount:      Float
+            donationNote:        String
+        ): Donation
+
+        createCampaign(
+          campaignOwnerId:       Int
+          campaignName:          String
+          campaignDescription:   String
+          campaignPictureURL:    String
+        ): Campaign
     }
 `;
 
@@ -81,13 +95,29 @@ const resolvers = {
   },
   Mutation: {
     createUser: async (
-        _: any,
-        data: Omit<User, "updatedAt" | "createdAt" | "id">
-      ) => {
-        return await prisma.user.create({
-          data
-        });
-      },
+      _: any,
+      data: Omit<User, "updatedAt" | "createdAt" | "id">
+    ) => {
+      return await prisma.user.create({
+        data,
+      });
+    },
+    createDonation: async (
+      _: any,
+      data: Omit<Donation, "updatedAt" | "createdAt" | "id">
+    ) => {
+      return await prisma.donation.create({
+        data,
+      })
+    },
+    createCampaign: async (
+      _: any, 
+      data: Omit<Campaign, "updatedAt" | "createdAt" | "id">
+    ) => {
+      return await prisma.campaign.create({
+        data,
+      })
+    }
   },
   Campaign: {
     donations: (parent: any) => {
