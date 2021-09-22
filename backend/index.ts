@@ -3,11 +3,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { GraphQLScalarType, Kind } from "graphql";
 import { graphqlHTTP } from "express-graphql";
 import { makeExecutableSchema } from "@graphql-tools/schema";
-//import cors from "cors";
-//import jsonwebtoken from "jsonwebtoken";
-//import dotenv from "dotenv";
-//import jwt from "express-jwt";
-// import QueryString from "qs";
+import cors from "cors";
 
 const expressPlayground =
   require("graphql-playground-middleware-express").default;
@@ -229,10 +225,14 @@ export const schema = makeExecutableSchema({ resolvers, typeDefs });
 
 const app = express();
 
+let corsOptions = {
+  origin: "http://localhost:4200",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions));
+
 app.use(
   "/graphql",
-  // jwt({ secret: JWT_SECRET, algorithms: ["HS256"], credentialsRequired: false }),
-  // authenticationMiddleware,
   graphqlHTTP({
     schema,
   })
