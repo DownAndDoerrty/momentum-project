@@ -65,25 +65,25 @@ async function main() {
     }});
     await prisma.donation.create({ data: {
         donorUserId: p2.id,
-        campaignId: c2.id,
+        campaignId: c1.id,
         donationAmount: 0.25,
         donationNote: "A pity quarter",
     }});
     await prisma.donation.create({ data: {
         donorUserId: p3.id,
-        campaignId: c3.id,
+        campaignId: c1.id,
         donationAmount: 100,
         donationNote: "Chump change",
     }});
     await prisma.donation.create({ data: {
         donorUserId: p4.id,
-        campaignId: c4.id,
+        campaignId: c1.id,
         donationAmount: 23456,
         donationNote: "My favorite cause!",
     }});
     await prisma.donation.create({ data: {
         donorUserId: p1.id,
-        campaignId: c1.id,
+        campaignId: c2.id,
         donationAmount: 430,
         donationNote: "All I can spare",
     }});
@@ -95,13 +95,13 @@ async function main() {
     }});
     await prisma.donation.create({ data: {
         donorUserId: p4.id,
-        campaignId: c4.id,
+        campaignId: c2.id,
         donationAmount: 250,
         donationNote: "Weirdly, I've been looking to spend money on this exact thing!",
     }});
     await prisma.donation.create({ data: {
         donorUserId: p1.id,
-        campaignId: c1.id,
+        campaignId: c3.id,
         donationAmount: 80000,
         donationNote: "Hoping they get more harpoons!",
     }});
@@ -113,25 +113,25 @@ async function main() {
     }});
     await prisma.donation.create({ data: {
         donorUserId: p4.id,
-        campaignId: c4.id,
+        campaignId: c3.id,
         donationAmount: 4500000,
         donationNote: "Just here for the drama!",
     }});
     await prisma.donation.create({ data: {
         donorUserId: p1.id,
-        campaignId: c1.id,
+        campaignId: c4.id,
         donationAmount: 8700,
         donationNote: "I heard TMUX does Habitat for Humanity in its free time!",
     }});
     await prisma.donation.create({ data: {
         donorUserId: p2.id,
-        campaignId: c2.id,
+        campaignId: c4.id,
         donationAmount: 900,
         donationNote: "TMUX saved my dog from a burning building!",
     }});
     await prisma.donation.create({ data: {
         donorUserId: p3.id,
-        campaignId: c3.id,
+        campaignId: c4.id,
         donationAmount: 200,
         donationNote: "TMUX helped me carry my groceries inside once!",
     }});

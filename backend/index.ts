@@ -55,9 +55,17 @@ const typeDefs = `
         donations:         [Donation]
         ownedCampaigns:    [Campaign]
     }
+
     type Query {
-        getCampaignDonations(campaignId: Int!): [Donation]
+      getAllUsers:                                [User]
+      getUserByUserId(userId: Int!):              User
+      getAllCampaigns:                            [Campaign]
+      getCampaignByCampaignId(campaignId: Int!):  Campaign
+      getAllCampaignDonations(campaignId: Int!):  [Donation]
+      getAllUserDonations(userId: Int!):          [Donation]
+      getDonationsByCampaignIdAndUserId(campaignId: Int!, userId: Int!):   [Donation]
     }
+
     type Mutation {
         createUser(
             firstName:         String
@@ -85,10 +93,54 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
-    getCampaignDonations: (_: any, { campaignId }: { campaignId: number }) => {
+    getAllUsers: () => {
+      return prisma.user.findMany();
+    },
+    getUserByUserId: (_: any, { userId }: { userId: number }) => {
+      return prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+      });
+    },
+    getAllCampaigns: () => {
+      return prisma.campaign.findMany();
+    },
+    getCampaignByCampaignId: (
+      _: any,
+      { campaignId }: { campaignId: number }
+    ) => {
+      return prisma.campaign.findUnique({
+        where: {
+          id: campaignId,
+        },
+      });
+    },
+    getAllCampaignDonations: (
+      _: any,
+      { campaignId }: { campaignId: number }
+    ) => {
       return prisma.donation.findMany({
         where: {
           campaignId: campaignId,
+        },
+      });
+    },
+    getAllUserDonations: (_: any, { userId }: { userId: number }) => {
+      return prisma.donation.findMany({
+        where: {
+          donorUserId: userId,
+        },
+      });
+    },
+    getDonationsByCampaignIdAndUserId: (
+      _: any,
+      { campaignId, userId }: { campaignId: number; userId: number }
+    ) => {
+      return prisma.donation.findMany({
+        where: {
+          campaignId: campaignId,
+          donorUserId: userId,
         },
       });
     },
@@ -108,16 +160,16 @@ const resolvers = {
     ) => {
       return await prisma.donation.create({
         data,
-      })
+      });
     },
     createCampaign: async (
-      _: any, 
+      _: any,
       data: Omit<Campaign, "updatedAt" | "createdAt" | "id">
     ) => {
       return await prisma.campaign.create({
         data,
-      })
-    }
+      });
+    },
   },
   Campaign: {
     donations: (parent: any) => {

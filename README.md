@@ -21,30 +21,31 @@ Project setup
 - [ ] GraphQL
 
 ## GraphQL
-- [ ] Mutations
+- [X] Mutations
     - [X] Create user
         - `firstName`
         - `lastName`
         - `email`
         - `passwordHash`
         - `profilePictureURL`
-    - [ ] Create donation
+    - [X] Create donation
         - `donorUserId`
         - `campaignId`
         - `donationAmount`
         - `donationNote`
-    - [ ] Create campaign
+    - [X] Create campaign
         - `campaignOwnerId`
         - `campaignName`
         - `campaignDescription`
         - `campaignPictureURL`
-- [ ] Queries 
-    - [ ] Get list of all users
-    - [ ] Get single user by `userId`
-    - [ ] Get list of all campaigns
+- [X] Queries 
+    - [X] Get list of all users
+    - [X] Get single user by `userId`
+    - [X] Get list of all campaigns
     - [X] Get single campaign by `campaignId`
     - [X] Get list of all donations by `campaignId`
     - [X] Get single donation by `donorUserId`
+    - [X] Get donations by `donorUserId` and `campaignId`
 
 
 
