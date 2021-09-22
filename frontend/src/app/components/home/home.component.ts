@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/services/service-interfaces';
-import { UserService } from 'src/app/services/user.service';
+import { CampaignService } from 'src/app/services/campaign.service';
 
 
 @Component({
@@ -10,9 +10,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HomeComponent {
 
-  constructor(public userService: UserService) {}
+  constructor(public campaignService: CampaignService) {}
 
-  get allUserData(){
-    return this.userService.allUserData
+  get allCampaignData(){
+    return this.campaignService.allCampaignData
   }
 }

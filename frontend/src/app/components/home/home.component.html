@@ -1,8 +1,17 @@
 <p>home works!</p>
 
-<p>Users:</p>
+<p>Campaigns:</p>
 <ul>
-  <li *ngFor="let userItem of allUserData">
-    <span>{{ userItem.firstName }}</span>
+  <li *ngFor="let campaignItem of allCampaignData">
+    <span>{{ campaignItem.campaignName }}</span>
+    <ul>
+      <li *ngFor="let donationItem of campaignItem.donations">
+        <span>
+          {{ donationItem.donor.firstName }} -
+          {{ donationItem.donationAmount | currency }}
+        </span>
+      </li>
+    </ul>
   </li>
 </ul>
+
