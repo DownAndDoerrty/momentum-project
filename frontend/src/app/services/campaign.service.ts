@@ -32,6 +32,7 @@ export class CampaignService {
             donations{
               donor {
                 firstName
+                id
               }
               donationAmount
             }

@@ -6,7 +6,9 @@
     <span>{{ campaignItem.campaignName }}</span>
     <ul>
       <li *ngFor="let donationItem of campaignItem.donations">
+        <!-- Each span routes to a profile -->
         <span>
+          <app-profile [userProfileId]="donationItem?.donor.id"></app-profile>
           {{ donationItem.donor.firstName }} -
           {{ donationItem.donationAmount | currency }}
         </span>

@@ -40,6 +40,31 @@ export class UserService {
     ).pipe(catchError(this.handleError));
   }
 
+  loadSingleUserDataFromGraphQL(userId: number) {
+    return this.http.post(
+      environment.apiUrl,
+      JSON.stringify({
+        query: `
+        query {
+          getUserByUserId (userId: ${JSON.stringify(userId)}) {
+            id
+            firstName
+            lastName
+            email
+            passwordHash
+            profilePictureURL
+            createdAt
+            updatedAt
+          }
+        }
+        `,
+      }),
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    ).pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
