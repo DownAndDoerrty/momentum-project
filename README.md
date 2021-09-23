@@ -19,7 +19,22 @@ Project setup
 
 - [ ] UI Layout
   - [ ] Pages
-  - [ ] Components
+    - [ ] `'/login'`
+      - [ ] Log In
+      - [ ] Create a User Account
+    - [ ] `'/home'`
+      - [ ] Display All Campaign Data
+      - [ ] Get All Campaigns
+      - [ ] Log Out
+    - [ ] `'/campaign/id'`
+      - [ ] Display Campaign Data
+      - [ ] Get All Donations Made to Campaign
+      - [ ] Create a Donation for Campaign
+    - [ ] `'/profile/id'`
+      - [ ] Display Profile Data
+      - [ ] Get Donations Made by User
+      - [ ] Get Campaigns Owned by User
+      - [ ] Create a Campaign Owned by User
   - [ ] Routing and Navigation
 - [ ] Authentication (Authguard?)
 - [ ] GraphQL
