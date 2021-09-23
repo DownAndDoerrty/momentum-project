@@ -1,5 +1,6 @@
 import { UserService } from 'src/app/services/user.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -10,10 +11,12 @@ export class ProfileComponent implements OnInit {
   @Input() userProfileId: number;
   userProfile?: any;
 
-  constructor(public userService: UserService) {}
-
+  constructor(public userService: UserService, private route: ActivatedRoute) {}
   ngOnInit() {
-    this.userProfileByUserId(this.userProfileId)
+    this.route.params.subscribe((params) => {
+      this.userProfileByUserId(parseInt(params['profileId']))
+    })
+
   }
 
   userProfileByUserId(userId: number) {
@@ -22,5 +25,4 @@ export class ProfileComponent implements OnInit {
       console.log(this.userProfile)
     })
   }
-
 }
