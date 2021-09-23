@@ -1,5 +1,13 @@
 <ul>
-  <li>{{ userProfile.firstName }}</li>
-  <li>{{ userProfile.lastName }}</li>
-  <li> {{userProfile.email}}</li>
+  <li>{{ userProfile?.firstName }}</li>
+  <li>{{ userProfile?.lastName }}</li>
+  <li>{{ userProfile?.email }}</li>
+  <ul *ngFor="let campaignItem of userProfile?.ownedCampaigns">
+    <li>{{ campaignItem.campaignName }}</li>
+    <ul *ngFor="let donationItem of campaignItem?.donations">
+      <li>
+        <span>{{ donationItem?.donor.firstName }}: {{ donationItem?.donationAmount | currency }}</span>
+      </li>
+    </ul>
+  </ul>
 </ul>

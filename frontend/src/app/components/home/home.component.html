@@ -1,18 +1,14 @@
-<p>home works!</p>
-
 <p>Campaigns:</p>
-<ul>
-  <li *ngFor="let campaignItem of allCampaignData">
-    <span>{{ campaignItem.campaignName }}</span>
-    <ul>
-      <li *ngFor="let donationItem of campaignItem.donations">
-        <!-- Each span routes to a profile -->
-        <a [routerLink]="['/profile', donationItem?.donor.id]">
-          {{ donationItem.donor.firstName }} -
-          {{ donationItem.donationAmount | currency }}
-        </a>
-      </li>
-    </ul>
-  </li>
-</ul>
+<section *ngFor="let campaignItem of allCampaignData">
+  <h3 style="margin-block-end: 0.25em;">{{ campaignItem.campaignName }}</h3>
+  <ul>
+    <li *ngFor="let donationItem of campaignItem.donations">
+      <!-- Each span routes to a profile -->
+      <h5 style="cursor: pointer; color: cornflowerblue; margin-block-start: 0.25em; margin-block-end: 0.25em;" [routerLink]="['/profile', donationItem?.donor.id]">
+        {{ donationItem.donor.firstName }} -
+        {{ donationItem.donationAmount | currency }}
+      </h5>
+    </li>
+  </ul>
+</section>
 

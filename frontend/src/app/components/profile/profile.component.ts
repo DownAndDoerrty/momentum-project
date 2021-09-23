@@ -1,3 +1,4 @@
+import { User } from './../../services/service-interfaces';
 import { UserService } from 'src/app/services/user.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -8,8 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./profile.component.sass']
 })
 export class ProfileComponent implements OnInit {
-  @Input() userProfileId: number;
-  userProfile?: any;
+  userProfile?: User;
 
   constructor(public userService: UserService, private route: ActivatedRoute) {}
   ngOnInit() {
@@ -20,9 +20,9 @@ export class ProfileComponent implements OnInit {
   }
 
   userProfileByUserId(userId: number) {
-    this.userProfile = this.userService.loadSingleUserDataFromGraphQL(userId).subscribe(({data}: any) => {
-      this.userProfile = data?.getUserByUserId
-      console.log(this.userProfile)
+    this.userService.loadSingleUserDataFromGraphQL(userId).subscribe(({data}: any) => {
+      this.userProfile = data?.getUserByUserId;
+      console.log('this.userProfile', this.userProfile);
     })
   }
 }

@@ -4,6 +4,26 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { throwError } from 'rxjs';
 import { User } from './service-interfaces';
+import { campaignFragment, donationFragment, userFragment } from './query-fragments';
+
+const userQuery = `
+  ${userFragment}
+  donations {
+    ${donationFragment}
+    campaign {
+      ${campaignFragment}
+    }
+  }
+  ownedCampaigns {
+    ${campaignFragment}
+    donations {
+      ${donationFragment}
+      donor {
+        ${userFragment}
+      }
+    }
+  }
+`
 
 @Injectable({
   providedIn: 'root',
@@ -22,14 +42,7 @@ export class UserService {
         query: `
         query {
           getAllUsers {
-            id
-            firstName
-            lastName
-            email
-            passwordHash
-            profilePictureURL
-            createdAt
-            updatedAt
+            ${userQuery}
           }
         }
         `,
@@ -47,14 +60,7 @@ export class UserService {
         query: `
         query {
           getUserByUserId (userId: ${JSON.stringify(userId)}) {
-            id
-            firstName
-            lastName
-            email
-            passwordHash
-            profilePictureURL
-            createdAt
-            updatedAt
+            ${userQuery}
           }
         }
         `,

@@ -4,6 +4,26 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Campaign } from './service-interfaces';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { donationFragment, userFragment } from './query-fragments';
+
+const campaignQuery = `
+    id
+    campaignOwnerId
+    campaignName
+    campaignDescription
+    campaignPictureURL
+    createdAt
+    updatedAt
+    donations {
+      ${donationFragment}
+      donor {
+        ${userFragment}
+      }
+    }
+    campaignOwner {
+      ${userFragment}
+    }
+  `
 @Injectable({
   providedIn: 'root'
 })
@@ -22,20 +42,25 @@ export class CampaignService {
         query: `
         query {
           getAllCampaigns {
-            id
-            campaignOwnerId
-            campaignName
-            campaignDescription
-            campaignPictureURL
-            createdAt
-            updatedAt
-            donations{
-              donor {
-                firstName
-                id
-              }
-              donationAmount
-            }
+              ${campaignQuery}
+          }
+        }
+        `,
+      }),
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    ).pipe(catchError(this.handleError));
+  }
+
+  loadSingleCampaignDataFromGraphQL(campaignId: number) {
+    return this.http.post(
+      environment.apiUrl,
+      JSON.stringify({
+        query: `
+        query {
+          getCampaignByCampaignId (campaignId: ${JSON.stringify(campaignId)}) {
+            ${campaignQuery}
           }
         }
         `,

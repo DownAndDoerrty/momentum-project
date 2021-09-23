@@ -1,0 +1,8 @@
+<h1>{{ campaign?.campaignName }}</h1>
+<h2>{{ campaign?.campaignDescription }}</h2>
+<h3>Donors</h3>
+<ul>
+    <li *ngFor="let donation of campaign?.donations">
+        <span>{{donation.donor.firstName}} {{donation.donor.lastName}}</span>
+    </li>
+</ul>
