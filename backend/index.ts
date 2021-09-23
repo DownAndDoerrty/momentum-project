@@ -4,6 +4,10 @@ import { GraphQLScalarType, Kind } from "graphql";
 import { graphqlHTTP } from "express-graphql";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import cors from "cors";
+import dotenv from "dotenv";
+import jsonwebtoken from "jsonwebtoken";
+import QueryString from "qs";
+import jwt from 'express-jwt'
 
 const expressPlayground =
   require("graphql-playground-middleware-express").default;
@@ -229,10 +233,46 @@ let corsOptions = {
   origin: "http://localhost:4200",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
+
+dotenv.config();
+
+const JWT_SECRET = Buffer.from(process.env.JWT_SECRET as string, "base64")
+
+app.post("/login", express.json(), (req, res) => {
+  if (req.body.email == "harry@harry.com") {
+    const userId = 1;
+    const token = jsonwebtoken.sign(
+      { sub: userId }, 
+      JWT_SECRET, {
+      expiresIn: "1h"
+    })
+    res.status(200).json({ token });
+  } else {
+    res.sendStatus(401)
+  }
+})
+
+const authenticationMiddleware = (
+  req: Request<{}, any, any, QueryString.ParsedQs, Record<string, any>>,
+  res: Response<any, Record<string, any>>,
+  next: NextFunction
+) => {
+  if ((req?.user as {sub: number})?.sub > 0) {
+    prisma.user.findUnique({ where: { id: +(req?.user as {sub: number})?.sub }}).then(user => {
+      console.log(user)
+    })
+    next()
+  } else {
+    res.status(401).json({"error": "unauthorized"})
+  }
+}
+
 app.use(cors(corsOptions));
 
 app.use(
   "/graphql",
+  jwt({ secret: JWT_SECRET, algorithms: ["HS256"], credentialsRequired: false }),
+  authenticationMiddleware,
   graphqlHTTP({
     schema,
   })
