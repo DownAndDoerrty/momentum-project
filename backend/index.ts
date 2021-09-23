@@ -17,6 +17,8 @@ const prisma = new PrismaClient({
 });
 const port = 4000;
 
+dotenv.config();
+
 const typeDefs = `
     scalar Date
     type Campaign {
@@ -234,7 +236,8 @@ let corsOptions = {
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
-dotenv.config();
+app.use(cors(corsOptions));
+
 
 const JWT_SECRET = Buffer.from(process.env.JWT_SECRET as string, "base64")
 
@@ -267,7 +270,6 @@ const authenticationMiddleware = (
   }
 }
 
-app.use(cors(corsOptions));
 
 app.use(
   "/graphql",
