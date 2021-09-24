@@ -1,5 +1,5 @@
-import { UserService } from './services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor(public userService: UserService) {
+  constructor(public authService: AuthService) {
 
   }
 
-  // ngOnInit() {
-    // this.userService
-  // }
   title = 'tax-breaker';
+
+  onLogout() {
+    this.authService.logout()
+  }
 }

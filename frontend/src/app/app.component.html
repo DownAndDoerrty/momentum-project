@@ -1,5 +1,8 @@
 <h1 style="cursor: pointer; color: cornflowerblue;"
     routerLink="/home">
     Tax Breaker
-  </h1>
+</h1>
+<section *ngIf="authService.isLoggedIn">
+  <button (click)="onLogout()">Log Out</button>
+</section>
 <router-outlet></router-outlet>

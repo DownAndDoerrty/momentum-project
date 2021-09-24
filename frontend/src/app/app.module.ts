@@ -11,18 +11,22 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { CampaignComponent } from './components/campaign/campaign.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { DonationService } from './services/donation.service';
+import { LoginComponent } from './components/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ProfileComponent,
-    CampaignComponent
+    CampaignComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     UserService,

@@ -32,7 +32,7 @@ export class UserService {
   allUserData: User[] = []
 
   constructor(public http: HttpClient) {
-    this.load()
+    // this.load()
   }
 
   loadAllUserDataFromGraphQL() {

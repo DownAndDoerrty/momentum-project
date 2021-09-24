@@ -9,38 +9,45 @@ export class AuthService {
 
   baseURL: string = 'http://localhost:4000/login/'
   redirectUrl = '/login';
-  isLoggedIn = false;
+
+  get isLoggedIn() {
+    return !!localStorage.getItem('authorization')
+  }
 
   constructor(
     public router: Router,
     private http: HttpClient
     ) {
-    this.submitLoginCredentials().subscribe((res: HttpResponse<any>) => {
-      localStorage.setItem('authorization', res.body?.token)
-    })
-    this.isLoggedIn = !!localStorage.getItem('authorization')
     console.log(this.isLoggedIn)
   }
 
 
-  submitLoginCredentials() {
-    return this.http.post(
+  submitLoginCredentials(email: string) {
+    const observableResponse = this.http.post(
       this.baseURL,
-      { email: "harry@harry.com" },
+      { email: email },
       { headers: {
         responseType: "json",
       },
       observe: 'response'
      }
-    )
+    );
+    observableResponse.subscribe((res: HttpResponse<any>) => {
+      localStorage.setItem('authorization', res.body?.token)
+    });
+    return observableResponse;
   }
 
   login() {
-    !!this.isLoggedIn ? this.router.navigate(['/home']) : console.log("You need to login!")
+    if (this.isLoggedIn ) {
+      this.router.navigate(['/home'])
+    }
   }
 
   logout() {
-    !this.isLoggedIn ? this.router.navigate(['/login']) : console.log("You've logged out!")
     localStorage.clear()
+    if (!this.isLoggedIn) {
+      this.router.navigate(['/login'])
+    }
   }
 }

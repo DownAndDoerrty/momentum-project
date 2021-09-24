@@ -1,0 +1,11 @@
+<form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+  <label for="email">Email: </label>
+  <input
+    id="email"
+    type="text"
+    placeholder="you@email.com"
+    formControlName="email"/>
+  <br/>
+  <br/>
+  <button type="submit">Log In!</button>
+</form>
