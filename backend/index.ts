@@ -13,7 +13,7 @@ const expressPlayground =
   require("graphql-playground-middleware-express").default;
 
 const prisma = new PrismaClient({
-  log: ["query", "info"],
+  // log: ["query"],
 });
 const port = 4000;
 
@@ -242,17 +242,22 @@ app.use(cors(corsOptions));
 const JWT_SECRET = Buffer.from(process.env.JWT_SECRET as string, "base64")
 
 app.post("/login", express.json(), (req, res) => {
-  if (req.body.email == "harry@harry.com") {
-    const userId = 1;
+  console.log({body: req?.body.email})
+  prisma.user.findFirst({ where: { email: req?.body.email }}).then(user => {
+    console.log({user})
+    if(!user) {
+      res.sendStatus(401)
+      return
+    } 
+
+    const userId = user.id;
     const token = jsonwebtoken.sign(
       { sub: userId }, 
       JWT_SECRET, {
       expiresIn: "1h"
     })
     res.status(200).json({ token });
-  } else {
-    res.sendStatus(401)
-  }
+  })
 })
 
 const authenticationMiddleware = (
