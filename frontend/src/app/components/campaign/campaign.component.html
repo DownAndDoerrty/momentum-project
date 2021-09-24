@@ -2,7 +2,29 @@
 <h2>{{ campaign?.campaignDescription }}</h2>
 <h3>Donors</h3>
 <ul>
-    <li *ngFor="let donation of campaign?.donations">
-        <span>{{donation.donor.firstName}} {{donation.donor.lastName}}</span>
-    </li>
+  <li *ngFor="let donation of campaign?.donations">
+    <span>{{ donation.donor.firstName }} {{ donation.donor.lastName }}</span>
+  </li>
 </ul>
+<h3>Donate to this campaign</h3>
+<form [formGroup]="donationForm" (ngSubmit)="onDonationSubmit()">
+  <label for="donationAmount">Donation Amount: </label>
+  <br />
+  <input
+    id="donationAmount"
+    type="text"
+    placeholder="$27.00"
+    formControlName="donationAmount"
+  />
+  <br />
+  <br />
+  <label for="donationNote">Donation Note: </label>
+  <br />
+  <input
+    id="donationNote"
+    type="text"
+    placeholder="Donation Note"
+    formControlName="donationNote"
+  />
+  <button type="submit">Donate!</button>
+</form>

@@ -6,8 +6,48 @@
     <li>{{ campaignItem.campaignName }}</li>
     <ul *ngFor="let donationItem of campaignItem?.donations">
       <li>
-        <span>{{ donationItem?.donor.firstName }}: {{ donationItem?.donationAmount | currency }}</span>
+        <span
+          >{{ donationItem?.donor.firstName }}:
+          {{ donationItem?.donationAmount | currency }}</span
+        >
       </li>
     </ul>
   </ul>
 </ul>
+<br />
+<br />
+<br />
+<form [formGroup]="newCampaignForm" (ngSubmit)="submitNewCampaignForm()">
+  <label for="name">Campaign Name: </label>
+  <br />
+  <input
+    id="name"
+    type="text"
+    placeholder="Name your campaign!"
+    formControlName="campaignName"
+  />
+  <br />
+  <br />
+  <label for="description">Campaign Description: </label>
+  <br />
+  <input
+    id="description"
+    type="text"
+    placeholder="Describe your campaign!"
+    formControlName="campaignDescription"
+  />
+  <br />
+  <br />
+  <label for="pictureUrl">Campaign Picture URL: </label>
+  <br />
+  <input
+    id="pictureUrl"
+    placeholder="https://yourcampaignpicture.com"
+    formControlName="campaignPictureURL"
+  />
+  <br />
+  <br />
+  <button type="submit" [disabled]="newCampaignForm.invalid">
+    Create My Campaign!
+  </button>
+</form>

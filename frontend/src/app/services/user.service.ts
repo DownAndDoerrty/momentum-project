@@ -97,9 +97,7 @@ export class UserService {
 
   load() {
     this.loadAllUserDataFromGraphQL().subscribe(({ data }: any) => {
-      console.log(data);
       this.allUserData = data?.getAllUsers;
-      console.log(this.allUserData);
     });
   }
 }

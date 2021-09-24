@@ -7,8 +7,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import jsonwebtoken from "jsonwebtoken";
 import QueryString from "qs";
-import jwt from 'express-jwt'
-import bcrypt from 'bcryptjs'
+import jwt from "express-jwt";
+import bcrypt from "bcryptjs";
 
 const expressPlayground =
   require("graphql-playground-middleware-express").default;
@@ -153,7 +153,7 @@ const resolvers = {
       _: any,
       data: Omit<User, "updatedAt" | "createdAt" | "id">
     ) => {
-      data = {...data, passwordHash: bcrypt.hashSync(data.passwordHash)}
+      data = { ...data, passwordHash: bcrypt.hashSync(data.passwordHash) };
       return await prisma.user.create({
         data,
       });
@@ -240,52 +240,56 @@ let corsOptions = {
 
 app.use(cors(corsOptions));
 
-
-const JWT_SECRET = Buffer.from(process.env.JWT_SECRET as string, "base64")
+const JWT_SECRET = Buffer.from(process.env.JWT_SECRET as string, "base64");
 
 app.post("/login", express.json(), (req, res) => {
-  prisma.user.findFirst({ 
-    where: { 
-      email: req?.body.email
-    }
-  }).then(user => {
-    if(!user) {
-      res.sendStatus(401)
-      return
-    } 
-    if (!bcrypt.compareSync(req?.body.password, user.passwordHash)) {
-      res.sendStatus(401)
-      return
-    }
-    
-    const userId = user.id;
-    const token = jsonwebtoken.sign(
-      { sub: userId }, 
-      JWT_SECRET, {
-        expiresIn: "1h"
-      })
+  prisma.user
+    .findFirst({
+      where: {
+        email: req?.body.email,
+      },
+    })
+    .then((user) => {
+      if (!user) {
+        res.sendStatus(401);
+        return;
+      }
+      if (!bcrypt.compareSync(req?.body.password, user.passwordHash)) {
+        res.sendStatus(401);
+        return;
+      }
+
+      const userId = user.id;
+      const token = jsonwebtoken.sign({ sub: userId }, JWT_SECRET, {
+        expiresIn: "365d",
+      });
       res.status(200).json({ token });
-  })
-})
+    });
+});
 
 const authenticationMiddleware = (
   req: Request<{}, any, any, QueryString.ParsedQs, Record<string, any>>,
   res: Response<any, Record<string, any>>,
   next: NextFunction
 ) => {
-  if ((req?.user as {sub: number})?.sub > 0) {
-    prisma.user.findUnique({ where: { id: +(req?.user as {sub: number})?.sub }}).then(_user => {
-      next()
-    })
+  if ((req?.user as { sub: number })?.sub > 0) {
+    prisma.user
+      .findUnique({ where: { id: +(req?.user as { sub: number })?.sub } })
+      .then((_user) => {
+        next();
+      });
   } else {
-    res.status(401).json({"error": "unauthorized"})
+    res.status(401).json({ error: "unauthorized" });
   }
-}
-
+};
 
 app.use(
   "/graphql",
-  jwt({ secret: JWT_SECRET, algorithms: ["HS256"], credentialsRequired: false }),
+  jwt({
+    secret: JWT_SECRET,
+    algorithms: ["HS256"],
+    credentialsRequired: false,
+  }),
   authenticationMiddleware,
   graphqlHTTP({
     schema,

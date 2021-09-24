@@ -4,40 +4,40 @@ Project setup
 
 ## Backend
 
-- [X] Postgres Database
-- [X] Prisma
-  - [X] Models/Schema\*
-  - [X] Seed
-- [X] GraphQL
-- [X] Express Server
-  - [X] JWT
-  - [X] Endpoints
-    - [X] `/login`
-    - [X] `/graphql`
+- [x] Postgres Database
+- [x] Prisma
+  - [x] Models/Schema\*
+  - [x] Seed
+- [x] GraphQL
+- [x] Express Server
+  - [x] JWT
+  - [x] Endpoints
+    - [x] `/login`
+    - [x] `/graphql`
 
 ## Frontend
 
 - [ ] UI Layout
   - [ ] Pages
     - [ ] `'/login'`
-      - [X] Log In
+      - [x] Log In
       - [ ] Create a User Account
-    - [X] `'/home'`
-      - [X] Display All Campaign Data
-      - [X] Get All Campaigns
-      - [X] Log Out
+    - [x] `'/home'`
+      - [x] Display All Campaign Data
+      - [x] Get All Campaigns
+      - [x] Log Out
     - [ ] `'/campaign/id'`
       - [ ] Connect to `/home`
-      - [X] Display Campaign Data
-      - [X] Get All Donations Made to Campaign
+      - [x] Display Campaign Data
+      - [x] Get All Donations Made to Campaign
       - [ ] Create a Donation for Campaign
     - [ ] `'/profile/id'`
-      - [X] Display Profile Data
-      - [X] Get Donations Made by User
-      - [X] Get Campaigns Owned by User
+      - [x] Display Profile Data
+      - [x] Get Donations Made by User
+      - [x] Get Campaigns Owned by User
       - [ ] Create a Campaign Owned by User
-  - [X] Routing and Navigation
-- [X] Authentication (Authguard?)
+  - [x] Routing and Navigation
+- [x] Authentication (Authguard?)
 - [ ] GraphQL
 - [ ] Styling
 

@@ -74,6 +74,41 @@ export class CampaignService {
       .pipe(catchError(this.handleError));
   }
 
+  createNewCampaign(
+    campaignOwnerId: number,
+    newCampaignData: Omit<
+      Campaign,
+      'updatedAt' | 'createdAt' | 'id' | 'campaignOwnerId'
+    >
+  ) {
+    return this.http
+      .post(
+        environment.apiUrl,
+        JSON.stringify({
+          query: `
+            mutation {
+              createCampaign (
+                  campaignOwnerId: ${JSON.stringify(campaignOwnerId)},
+                  campaignName: ${JSON.stringify(newCampaignData.campaignName)},
+                  campaignDescription: ${JSON.stringify(
+                    newCampaignData.campaignDescription
+                  )},
+                  campaignPictureURL: ${JSON.stringify(
+                    newCampaignData.campaignPictureURL
+                  )},
+                ) {
+                ${campaignQuery}
+              }
+            }
+          `,
+        }),
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -92,9 +127,7 @@ export class CampaignService {
 
   load() {
     this.loadAllCampaignsFromGraphQl().subscribe(({ data }: any) => {
-      console.log(data);
       this.allCampaignData = data?.getAllCampaigns;
-      console.log(this.allCampaignData);
     });
   }
 }

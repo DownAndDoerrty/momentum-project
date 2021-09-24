@@ -13,9 +13,7 @@ export class AuthService {
     return !!localStorage.getItem('authorization');
   }
 
-  constructor(public router: Router, private http: HttpClient) {
-    console.log(this.isLoggedIn);
-  }
+  constructor(public router: Router, private http: HttpClient) {}
 
   submitLoginCredentials(email: string, password: string) {
     const observableResponse = this.http.post(
