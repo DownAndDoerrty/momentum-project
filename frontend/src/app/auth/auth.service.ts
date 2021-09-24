@@ -1,6 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { share } from 'rxjs/operators';
 import { User } from '../services/service-interfaces';
 
 @Injectable({
@@ -57,7 +58,7 @@ export class AuthService {
         responseType: 'json',
       },
       observe: 'response',
-    });
+    }).pipe(share());
     observableResponse.subscribe((res: HttpResponse<any>) => {
       console.log('Setting Local Storage!');
       localStorage.setItem('authorization', res.body?.token);
