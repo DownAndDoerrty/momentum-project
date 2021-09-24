@@ -1,6 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { share } from 'rxjs/operators';
 import { User } from '../services/service-interfaces';
 
 @Injectable({
@@ -54,20 +55,20 @@ export class AuthService {
   }
 
   createUser(newUserData: Omit<User, 'updatedAt' | 'createdAt' | 'id'>) {
-    console.log('Creating a User!!');
-    this.http
+    const observableResponse = this.http
       .post(this.baseSignUpURL, newUserData, {
         headers: {
           responseType: 'json',
         },
         observe: 'response',
       })
-      .subscribe((res: HttpResponse<any>) => {
-        console.log('Setting Local Storage!');
-        localStorage.setItem('authorization', res.body?.token);
-        if (res.body?.token) {
-          this.login();
-        }
-      });
+      .pipe(share());
+    observableResponse.subscribe((res: HttpResponse<any>) => {
+      localStorage.setItem('authorization', res.body?.token);
+      if (res.body?.token) {
+        this.login();
+      }
+    });
+    return observableResponse;
   }
 }
