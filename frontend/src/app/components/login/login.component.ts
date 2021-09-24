@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
     ) { }
 
     loginForm = this.formBuilder.group({
-      email: ''
+      email: '',
+      password: '',
     })
 
   ngOnInit(): void {
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   onLoginSubmit() {
     console.log(this.loginForm.value);
-    this.authService.submitLoginCredentials(this.loginForm.value.email).subscribe((item: HttpResponse<any>) => {
+    this.authService.submitLoginCredentials(this.loginForm.value.email, this.loginForm.value.password).subscribe((item: HttpResponse<any>) => {
       if (item.body.token) {
         this.authService.login()
       }

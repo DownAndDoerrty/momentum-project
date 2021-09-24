@@ -22,15 +22,19 @@ export class AuthService {
   }
 
 
-  submitLoginCredentials(email: string) {
+  submitLoginCredentials(email: string, password: string) {
     const observableResponse = this.http.post(
       this.baseURL,
-      { email: email },
-      { headers: {
-        responseType: "json",
+      {
+        email: email,
+        password: password
       },
-      observe: 'response'
-     }
+      {
+        headers: {
+          responseType: "json",
+        },
+        observe: 'response'
+      }
     );
     observableResponse.subscribe((res: HttpResponse<any>) => {
       localStorage.setItem('authorization', res.body?.token)
