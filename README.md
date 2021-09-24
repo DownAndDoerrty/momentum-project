@@ -17,28 +17,28 @@ Project setup
 
 ## Frontend
 
-- [ ] UI Layout
-  - [ ] Pages
-    - [ ] `'/login'`
+- [x] UI Layout
+  - [x] Pages
+    - [x] `'/login'`
       - [x] Log In
-      - [ ] Create a User Account
+      - [x] Create a User Account
     - [x] `'/home'`
       - [x] Display All Campaign Data
       - [x] Get All Campaigns
       - [x] Log Out
-    - [ ] `'/campaign/id'`
-      - [ ] Connect to `/home`
+    - [x] `'/campaign/id'`
+      - [x] Connect to `/home`
       - [x] Display Campaign Data
       - [x] Get All Donations Made to Campaign
-      - [ ] Create a Donation for Campaign
-    - [ ] `'/profile/id'`
+      - [x] Create a Donation for Campaign
+    - [x] `'/profile/id'`
       - [x] Display Profile Data
       - [x] Get Donations Made by User
       - [x] Get Campaigns Owned by User
-      - [ ] Create a Campaign Owned by User
+      - [x] Create a Campaign Owned by User
   - [x] Routing and Navigation
 - [x] Authentication (Authguard?)
-- [ ] GraphQL
+- [x] GraphQL
 - [ ] Styling
 
 ## GraphQL
