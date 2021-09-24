@@ -1,0 +1,55 @@
+<form [formGroup]="signupForm" novalidate>
+  <label for="firstName">Given Name: </label>
+  <br />
+  <input
+    id="firstName"
+    type="text"
+    placeholder="Joanne"
+    formControlName="firstName"
+  />
+  <br />
+  <br />
+  <label for="lastName">Family Name: </label>
+  <br />
+  <input
+    id="lastName"
+    type="text"
+    placeholder="Doe"
+    formControlName="lastName"
+  />
+  <br />
+  <br />
+  <label for="email">Email: </label>
+  <br />
+  <input
+    id="email"
+    type="text"
+    placeholder="you@email.com"
+    formControlName="email"
+  />
+  <br />
+  <br />
+  <label for="password">Password: </label>
+  <br />
+  <input
+    id="password"
+    type="password"
+    placeholder="Password"
+    formControlName="password"
+  />
+  <br />
+  <br />
+  <label for="profilePictureURL">profilePictureURL: </label>
+  <br />
+  <input
+    id="profilePictureURL"
+    type="text"
+    placeholder="URL"
+    formControlName="profilePictureURL"
+  />
+  <br />
+  <br />
+  <button (click)="submitSignupForm()" [disabled]="signupForm.invalid">
+    Sign Up!
+  </button>
+</form>

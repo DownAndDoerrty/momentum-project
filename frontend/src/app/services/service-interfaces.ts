@@ -3,8 +3,8 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
-  passwordHash: string;
-  profilePictureUrl: string;
+  password: string;
+  profilePictureURL: string;
   createdAt: Date;
   updatedAt: Date;
   ownedCampaigns?: Campaign[];

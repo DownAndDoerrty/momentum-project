@@ -48,7 +48,7 @@ Project setup
     - `firstName`
     - `lastName`
     - `email`
-    - `passwordHash`
+    - `password`
     - `profilePictureURL`
   - [x] Create donation
     - `donorUserId`
@@ -101,7 +101,7 @@ model User {
   firstName         String
   lastName          String
   email             String
-  passwordHash      String
+  password          String
   profilePictureURL String
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt

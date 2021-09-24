@@ -51,7 +51,6 @@ const typeDefs = `
         firstName:         String
         lastName:          String
         email:             String
-        passwordHash:      String
         profilePictureURL: String
         createdAt:         Date
         updatedAt:         Date
@@ -74,7 +73,7 @@ const typeDefs = `
             firstName:         String
             lastName:          String
             email:             String
-            passwordHash:      String
+            password:          String
             profilePictureURL: String
         ): User
 
@@ -151,11 +150,13 @@ const resolvers = {
   Mutation: {
     createUser: async (
       _: any,
-      data: Omit<User, "updatedAt" | "createdAt" | "id">
+      data: Omit<User, "updatedAt" | "createdAt" | "id" | "passwordHash"> & {
+        password: string;
+      }
     ) => {
-      data = { ...data, passwordHash: bcrypt.hashSync(data.passwordHash) };
+      const user = { ...data, passwordHash: bcrypt.hashSync(data.password) };
       return await prisma.user.create({
-        data,
+        data: user,
       });
     },
     createDonation: async (
@@ -231,6 +232,11 @@ const resolvers = {
 
 export const schema = makeExecutableSchema({ resolvers, typeDefs });
 
+export const createAccountSchema = makeExecutableSchema({
+  resolvers,
+  typeDefs,
+});
+
 const app = express();
 
 let corsOptions = {
@@ -256,6 +262,30 @@ app.post("/login", express.json(), (req, res) => {
       }
       if (!bcrypt.compareSync(req?.body.password, user.passwordHash)) {
         res.sendStatus(401);
+        return;
+      }
+
+      const userId = user.id;
+      const token = jsonwebtoken.sign({ sub: userId }, JWT_SECRET, {
+        expiresIn: "365d",
+      });
+      res.status(200).json({ token });
+    });
+});
+
+app.post("/signup", express.json(), (req, res) => {
+  console.log(req?.body);
+  return prisma.user
+    .create({
+      data: {
+        ...req?.body,
+        password: undefined,
+        passwordHash: bcrypt.hashSync(req?.body?.password),
+      },
+    })
+    .then((user) => {
+      if (!user) {
+        res.sendStatus(503);
         return;
       }
 

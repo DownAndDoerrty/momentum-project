@@ -23,7 +23,6 @@ export const userFragment = `
   firstName
   lastName
   email
-  passwordHash
   profilePictureURL
   createdAt
   updatedAt
