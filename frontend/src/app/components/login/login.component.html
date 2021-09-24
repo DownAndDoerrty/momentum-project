@@ -7,5 +7,5 @@
     formControlName="email"/>
   <br/>
   <br/>
-  <button type="submit">Log In!</button>
+  <button type="submit" [disabled]="!loginForm.value.email">Log In!</button>
 </form>

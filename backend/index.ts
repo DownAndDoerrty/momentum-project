@@ -8,12 +8,13 @@ import dotenv from "dotenv";
 import jsonwebtoken from "jsonwebtoken";
 import QueryString from "qs";
 import jwt from 'express-jwt'
+import bcrypt from 'bcryptjs'
 
 const expressPlayground =
   require("graphql-playground-middleware-express").default;
 
 const prisma = new PrismaClient({
-  // log: ["query"],
+  log: ["query"],
 });
 const port = 4000;
 
@@ -152,6 +153,7 @@ const resolvers = {
       _: any,
       data: Omit<User, "updatedAt" | "createdAt" | "id">
     ) => {
+      data = {...data, passwordHash: bcrypt.hashSync(data.passwordHash)}
       return await prisma.user.create({
         data,
       });
@@ -242,21 +244,27 @@ app.use(cors(corsOptions));
 const JWT_SECRET = Buffer.from(process.env.JWT_SECRET as string, "base64")
 
 app.post("/login", express.json(), (req, res) => {
-  console.log({body: req?.body.email})
-  prisma.user.findFirst({ where: { email: req?.body.email }}).then(user => {
-    console.log({user})
+  prisma.user.findFirst({ 
+    where: { 
+      email: req?.body.email
+    }
+  }).then(user => {
     if(!user) {
       res.sendStatus(401)
       return
     } 
-
+    if (!bcrypt.compareSync(req?.body.password, user.passwordHash)) {
+      res.sendStatus(401)
+      return
+    }
+    
     const userId = user.id;
     const token = jsonwebtoken.sign(
       { sub: userId }, 
       JWT_SECRET, {
-      expiresIn: "1h"
-    })
-    res.status(200).json({ token });
+        expiresIn: "1h"
+      })
+      res.status(200).json({ token });
   })
 })
 
@@ -266,10 +274,9 @@ const authenticationMiddleware = (
   next: NextFunction
 ) => {
   if ((req?.user as {sub: number})?.sub > 0) {
-    prisma.user.findUnique({ where: { id: +(req?.user as {sub: number})?.sub }}).then(user => {
-      console.log(user)
+    prisma.user.findUnique({ where: { id: +(req?.user as {sub: number})?.sub }}).then(_user => {
+      next()
     })
-    next()
   } else {
     res.status(401).json({"error": "unauthorized"})
   }
