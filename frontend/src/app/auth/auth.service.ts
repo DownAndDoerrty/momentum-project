@@ -18,23 +18,26 @@ export class AuthService {
   constructor(public router: Router, private http: HttpClient) {}
 
   submitLoginCredentials(email: string, password: string) {
-    const observableResponse = this.http.post(
-      this.baseLoginURL,
-      {
-        email: email,
-        password: password,
-      },
-      {
-        headers: {
-          responseType: 'json',
+    this.http
+      .post(
+        this.baseLoginURL,
+        {
+          email: email,
+          password: password,
         },
-        observe: 'response',
-      }
-    );
-    observableResponse.subscribe((res: HttpResponse<any>) => {
-      localStorage.setItem('authorization', res.body?.token);
-    });
-    return observableResponse;
+        {
+          headers: {
+            responseType: 'json',
+          },
+          observe: 'response',
+        }
+      )
+      .subscribe((res: HttpResponse<any>) => {
+        localStorage.setItem('authorization', res.body?.token);
+        if (res.body?.token) {
+          this.login();
+        }
+      });
   }
 
   login() {
@@ -52,16 +55,19 @@ export class AuthService {
 
   createUser(newUserData: Omit<User, 'updatedAt' | 'createdAt' | 'id'>) {
     console.log('Creating a User!!');
-    const observableResponse = this.http.post(this.baseSignUpURL, newUserData, {
-      headers: {
-        responseType: 'json',
-      },
-      observe: 'response',
-    });
-    observableResponse.subscribe((res: HttpResponse<any>) => {
-      console.log('Setting Local Storage!');
-      localStorage.setItem('authorization', res.body?.token);
-    });
-    return observableResponse;
+    this.http
+      .post(this.baseSignUpURL, newUserData, {
+        headers: {
+          responseType: 'json',
+        },
+        observe: 'response',
+      })
+      .subscribe((res: HttpResponse<any>) => {
+        console.log('Setting Local Storage!');
+        localStorage.setItem('authorization', res.body?.token);
+        if (res.body?.token) {
+          this.login();
+        }
+      });
   }
 }

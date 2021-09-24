@@ -1,4 +1,4 @@
-<form [formGroup]="signupForm" novalidate>
+<form [formGroup]="signupForm" (ngSubmit)="submitSignupForm()">
   <label for="firstName">Given Name: </label>
   <br />
   <input
@@ -49,7 +49,7 @@
   />
   <br />
   <br />
-  <button (click)="submitSignupForm()" [disabled]="signupForm.invalid">
+  <button type="submit" [disabled]="false || signupForm.invalid">
     Sign Up!
   </button>
 </form>

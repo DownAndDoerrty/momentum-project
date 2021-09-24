@@ -28,16 +28,10 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginSubmit() {
-    this.authService
-      .submitLoginCredentials(
-        this.loginForm.value.email,
-        this.loginForm.value.password
-      )
-      .subscribe((item: HttpResponse<any>) => {
-        if (item.body.token) {
-          this.authService.login();
-        }
-      });
+    this.authService.submitLoginCredentials(
+      this.loginForm.value.email,
+      this.loginForm.value.password
+    );
     this.loginForm.reset();
   }
 }

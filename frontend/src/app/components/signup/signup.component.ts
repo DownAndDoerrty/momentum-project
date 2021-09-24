@@ -17,11 +17,16 @@ export class SignupComponent implements OnInit {
   ) {}
 
   signupForm = this.formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    email: ['', Validators.required],
-    password: ['', Validators.required],
-    profilePictureURL: ['', Validators.required],
+    firstName: '',
+    // ['', Validators.required],
+    lastName: '',
+    // ['', Validators.required],
+    email: '',
+    // ['', Validators.required],
+    password: '',
+    // ['', Validators.required],
+    profilePictureURL: '',
+    // ['', Validators.required],
   });
 
   ngOnInit(): void {
@@ -31,20 +36,13 @@ export class SignupComponent implements OnInit {
   }
 
   submitSignupForm() {
-    this.authService
-      .createUser({
-        firstName: this.signupForm.value.firstName,
-        lastName: this.signupForm.value.lastName,
-        email: this.signupForm.value.email,
-        password: this.signupForm.value.password,
-        profilePictureURL: this.signupForm.value.profilePictureURL,
-      })
-      .subscribe(({ item }: any) => {
-        console.log('USER CREATED!');
-        if (item.body.token) {
-          this.authService.login();
-        }
-      });
+    this.authService.createUser({
+      firstName: this.signupForm.value.firstName,
+      lastName: this.signupForm.value.lastName,
+      email: this.signupForm.value.email,
+      password: this.signupForm.value.password,
+      profilePictureURL: this.signupForm.value.profilePictureURL,
+    });
     this.signupForm.reset();
   }
 }
