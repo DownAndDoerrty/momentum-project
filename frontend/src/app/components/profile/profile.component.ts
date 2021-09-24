@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.sass']
+  styleUrls: ['./profile.component.sass'],
 })
 export class ProfileComponent implements OnInit {
   userProfile?: User;
@@ -14,15 +14,16 @@ export class ProfileComponent implements OnInit {
   constructor(public userService: UserService, private route: ActivatedRoute) {}
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      this.userProfileByUserId(parseInt(params['profileId']))
-    })
-
+      this.userProfileByUserId(parseInt(params['profileId']));
+    });
   }
 
   userProfileByUserId(userId: number) {
-    this.userService.loadSingleUserDataFromGraphQL(userId).subscribe(({data}: any) => {
-      this.userProfile = data?.getUserByUserId;
-      console.log('this.userProfile', this.userProfile);
-    })
+    this.userService
+      .loadSingleUserDataFromGraphQL(userId)
+      .subscribe(({ data }: any) => {
+        this.userProfile = data?.getUserByUserId;
+        console.log('this.userProfile', this.userProfile);
+      });
   }
 }

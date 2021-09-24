@@ -4,7 +4,11 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { throwError } from 'rxjs';
 import { User } from './service-interfaces';
-import { campaignFragment, donationFragment, userFragment } from './query-fragments';
+import {
+  campaignFragment,
+  donationFragment,
+  userFragment,
+} from './query-fragments';
 
 const userQuery = `
   ${userFragment}
@@ -23,52 +27,56 @@ const userQuery = `
       }
     }
   }
-`
+`;
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  allUserData: User[] = []
+  allUserData: User[] = [];
 
   constructor(public http: HttpClient) {
     // this.load()
   }
 
   loadAllUserDataFromGraphQL() {
-    return this.http.post(
-      environment.apiUrl,
-      JSON.stringify({
-        query: `
+    return this.http
+      .post(
+        environment.apiUrl,
+        JSON.stringify({
+          query: `
         query {
           getAllUsers {
             ${userQuery}
           }
         }
         `,
-      }),
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    ).pipe(catchError(this.handleError));
+        }),
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
+      .pipe(catchError(this.handleError));
   }
 
   loadSingleUserDataFromGraphQL(userId: number) {
-    return this.http.post(
-      environment.apiUrl,
-      JSON.stringify({
-        query: `
+    return this.http
+      .post(
+        environment.apiUrl,
+        JSON.stringify({
+          query: `
         query {
           getUserByUserId (userId: ${JSON.stringify(userId)}) {
             ${userQuery}
           }
         }
         `,
-      }),
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    ).pipe(catchError(this.handleError));
+        }),
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -89,9 +97,9 @@ export class UserService {
 
   load() {
     this.loadAllUserDataFromGraphQL().subscribe(({ data }: any) => {
-      console.log(data)
-      this.allUserData = data?.getAllUsers
-      console.log(this.allUserData)
-    })
+      console.log(data);
+      this.allUserData = data?.getAllUsers;
+      console.log(this.allUserData);
+    });
   }
 }

@@ -3,55 +3,50 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  baseURL: string = 'http://localhost:4000/login/'
+  baseURL: string = 'http://localhost:4000/login/';
   redirectUrl = '/login';
 
   get isLoggedIn() {
-    return !!localStorage.getItem('authorization')
+    return !!localStorage.getItem('authorization');
   }
 
-  constructor(
-    public router: Router,
-    private http: HttpClient
-    ) {
-    console.log(this.isLoggedIn)
+  constructor(public router: Router, private http: HttpClient) {
+    console.log(this.isLoggedIn);
   }
-
 
   submitLoginCredentials(email: string, password: string) {
     const observableResponse = this.http.post(
       this.baseURL,
       {
         email: email,
-        password: password
+        password: password,
       },
       {
         headers: {
-          responseType: "json",
+          responseType: 'json',
         },
-        observe: 'response'
+        observe: 'response',
       }
     );
     observableResponse.subscribe((res: HttpResponse<any>) => {
-      localStorage.setItem('authorization', res.body?.token)
+      localStorage.setItem('authorization', res.body?.token);
     });
     return observableResponse;
   }
 
   login() {
-    if (this.isLoggedIn ) {
-      this.router.navigate(['/home'])
+    if (this.isLoggedIn) {
+      this.router.navigate(['/home']);
     }
   }
 
   logout() {
-    localStorage.clear()
+    localStorage.clear();
     if (!this.isLoggedIn) {
-      this.router.navigate(['/login'])
+      this.router.navigate(['/login']);
     }
   }
 }

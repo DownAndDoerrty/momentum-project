@@ -20,13 +20,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     ProfileComponent,
     CampaignComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     UserService,
@@ -35,9 +35,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
+      multi: true,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

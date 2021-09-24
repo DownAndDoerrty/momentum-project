@@ -6,7 +6,7 @@ donationAmount
 donationNote
 createdAt
 updatedAt
-`
+`;
 
 export const campaignFragment = `
   id
@@ -16,7 +16,7 @@ export const campaignFragment = `
   campaignPictureURL
   createdAt
   updatedAt
-`
+`;
 
 export const userFragment = `
   id
@@ -27,4 +27,4 @@ export const userFragment = `
   profilePictureURL
   createdAt
   updatedAt
-`
+`;

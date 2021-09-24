@@ -7,35 +7,38 @@ import { AuthService } from 'src/app/auth/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass']
+  styleUrls: ['./login.component.sass'],
 })
 export class LoginComponent implements OnInit {
-
   constructor(
     public authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder
-    ) { }
+  ) {}
 
-    loginForm = this.formBuilder.group({
-      email: '',
-      password: '',
-    })
+  loginForm = this.formBuilder.group({
+    email: '',
+    password: '',
+  });
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn) {
-      this.router.navigate(['/home'])
+      this.router.navigate(['/home']);
     }
   }
 
   onLoginSubmit() {
     console.log(this.loginForm.value);
-    this.authService.submitLoginCredentials(this.loginForm.value.email, this.loginForm.value.password).subscribe((item: HttpResponse<any>) => {
-      if (item.body.token) {
-        this.authService.login()
-      }
-    });
+    this.authService
+      .submitLoginCredentials(
+        this.loginForm.value.email,
+        this.loginForm.value.password
+      )
+      .subscribe((item: HttpResponse<any>) => {
+        if (item.body.token) {
+          this.authService.login();
+        }
+      });
     this.loginForm.reset();
   }
-
 }

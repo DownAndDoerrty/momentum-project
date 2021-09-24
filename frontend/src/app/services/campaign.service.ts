@@ -23,52 +23,55 @@ const campaignQuery = `
     campaignOwner {
       ${userFragment}
     }
-  `
+  `;
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CampaignService {
-
-  allCampaignData: Campaign[] = []
+  allCampaignData: Campaign[] = [];
 
   constructor(public http: HttpClient) {
-    this.load()
+    this.load();
   }
 
   loadAllCampaignsFromGraphQl() {
-    return this.http.post(
-      environment.apiUrl,
-      JSON.stringify({
-        query: `
+    return this.http
+      .post(
+        environment.apiUrl,
+        JSON.stringify({
+          query: `
         query {
           getAllCampaigns {
               ${campaignQuery}
           }
         }
         `,
-      }),
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    ).pipe(catchError(this.handleError));
+        }),
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
+      .pipe(catchError(this.handleError));
   }
 
   loadSingleCampaignDataFromGraphQL(campaignId: number) {
-    return this.http.post(
-      environment.apiUrl,
-      JSON.stringify({
-        query: `
+    return this.http
+      .post(
+        environment.apiUrl,
+        JSON.stringify({
+          query: `
         query {
           getCampaignByCampaignId (campaignId: ${JSON.stringify(campaignId)}) {
             ${campaignQuery}
           }
         }
         `,
-      }),
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    ).pipe(catchError(this.handleError));
+        }),
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -89,9 +92,9 @@ export class CampaignService {
 
   load() {
     this.loadAllCampaignsFromGraphQl().subscribe(({ data }: any) => {
-      console.log(data)
-      this.allCampaignData = data?.getAllCampaigns
-      console.log(this.allCampaignData)
-    })
+      console.log(data);
+      this.allCampaignData = data?.getAllCampaigns;
+      console.log(this.allCampaignData);
+    });
   }
 }
