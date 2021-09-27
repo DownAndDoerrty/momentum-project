@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "tax-breaker": {
+    "benefactory": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -39,7 +39,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/tax-breaker",
+            "outputPath": "dist/benefactory",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -82,18 +82,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "tax-breaker:build"
+            "browserTarget": "benefactory:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "tax-breaker:build:production"
+              "browserTarget": "benefactory:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tax-breaker:build"
+            "browserTarget": "benefactory:build"
           }
         },
         "test": {
@@ -122,7 +122,7 @@
       }
     }
   },
-  "defaultProject": "tax-breaker",
+  "defaultProject": "benefactory",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }
