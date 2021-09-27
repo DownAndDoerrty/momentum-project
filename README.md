@@ -71,7 +71,7 @@ Project setup
 
 \*Prisma Models/Schema
 
-```
+```graphql
 model Campaign {
   id                  Int        @id @default(autoincrement())
   campaignOwnerId     Int
