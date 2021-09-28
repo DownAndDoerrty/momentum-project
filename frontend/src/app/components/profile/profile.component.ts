@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/auth/auth.service';
 import { User } from './../../services/service-interfaces';
 import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -16,6 +17,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     public userService: UserService,
     public campaignService: CampaignService,
+    public authService: AuthService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder
   ) {}
@@ -30,6 +32,10 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.userProfileByUserId(parseInt(params['profileId']));
     });
+  }
+
+  get checkIfProfileIsCurrentUser() {
+    return this.authService.currentUserEmail === this.userProfile?.email;
   }
 
   userProfileByUserId(userId: number) {

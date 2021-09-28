@@ -11,6 +11,7 @@ export class AuthService {
   baseLoginURL: string = 'http://localhost:4000/login/';
   baseSignUpURL: string = 'http://localhost:4000/signup/';
   redirectUrl = '/login';
+  currentUserEmail = '';
 
   get isLoggedIn() {
     return !!localStorage.getItem('authorization');
@@ -36,6 +37,7 @@ export class AuthService {
       .subscribe((res: HttpResponse<any>) => {
         localStorage.setItem('authorization', res.body?.token);
         if (res.body?.token) {
+          this.currentUserEmail = email;
           this.login();
         }
       });
