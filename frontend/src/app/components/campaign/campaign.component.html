@@ -1,52 +1,63 @@
+<br />
+<br />
 <h1>{{ campaign?.campaignName }}</h1>
-<img src="{{ campaign?.campaignPictureURL }}" style="width: 100%" />
-<br />
-<br />
 <section class="campaignInfoContainer">
   <section class="campaignTitleAndImageContainer">
+    <img src="{{ campaign?.campaignPictureURL }}" style="width: 100%" />
+    <br />
+    <br />
+    <hr/>
+    <br />
+    <h3>Our Mission</h3>
+    <br />
+    <span style="overflow-wrap: break-word">{{
+      campaign?.campaignDescription
+    }}</span>
+  </section>
+
+  <section class="campaignDonorContainer">
     <h3>Donate to this campaign!</h3>
     <form [formGroup]="donationForm" (ngSubmit)="onDonationSubmit()">
-      <label for="donationAmount">Donation Amount($): </label>
+      <label for="donationAmount"
+      style="font-size: 12px;"
+      >Donation Amount($): </label>
       <br />
       <input
         id="donationAmount"
         type="text"
         placeholder="1.00"
         formControlName="donationAmount"
+        style="width: 100%"
       />
       <br />
       <br />
-      <label for="donationNote">Donation Note: </label>
+      <label for="donationNote"
+      style="font-size: 12px;"
+      >Donation Note: </label>
       <br />
       <input
         id="donationNote"
         type="text"
         placeholder="Donation Note"
         formControlName="donationNote"
+        style="width: 100%"
       />
       <br />
       <br />
       <button type="submit">Donate!</button>
     </form>
-  </section>
-
-  <section class="campaignDonorContainer">
-    <h3 class="campaignSubheader">Our Mission</h3>
-    <span style="overflow-wrap: break-word">{{
-      campaign?.campaignDescription
-    }}</span>
     <br />
+    <hr/>
     <br />
-    <h3 class="campaignSubheader">Donors</h3>
+    <h3>Donors</h3>
+    <br/>
     <ul>
       <li *ngFor="let donation of campaign?.donations">
-        <strong
-          >{{ donation.donor.firstName }} {{ donation.donor.lastName }}</strong
-        >
+        <strong>{{ donation.donor.firstName }} {{ donation.donor.lastName }}</strong>
         - <span>{{ donation.donationAmount | currency }}</span>
         <br />
-        <span>Note: </span>
-        <span>"{{ donation.donationNote }}"</span>
+        <span style="font-size: 12px;">Note: </span>
+        <span style="font-size: 12px;">"{{ donation.donationNote }}"</span>
         <br />
         <br />
       </li>
