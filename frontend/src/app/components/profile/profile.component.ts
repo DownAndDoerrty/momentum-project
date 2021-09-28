@@ -8,7 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.sass'],
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
   userProfile?: User;

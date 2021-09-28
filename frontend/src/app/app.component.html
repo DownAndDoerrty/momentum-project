@@ -1,7 +1,11 @@
-<h1 style="cursor: pointer; color: cornflowerblue" routerLink="/home">
-  Benefactory
-</h1>
-<section *ngIf="authService.isLoggedIn">
-  <button (click)="onLogout()">Log Out</button>
+<section class="header">
+  <h1 class="title" routerLink="/home">
+    Benefactory
+  </h1>
+  <section *ngIf="authService.isLoggedIn">
+    <button (click)="onLogout()" class="danger">Log Out</button>
+  </section>
 </section>
-<router-outlet></router-outlet>
+<div main class="body">
+  <router-outlet></router-outlet>
+</div>

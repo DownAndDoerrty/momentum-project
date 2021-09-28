@@ -5,7 +5,7 @@ import { CampaignService } from 'src/app/services/campaign.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.sass'],
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
   constructor(public campaignService: CampaignService) {}

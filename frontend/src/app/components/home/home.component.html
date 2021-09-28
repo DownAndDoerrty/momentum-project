@@ -1,29 +1,25 @@
-<p>Campaigns:</p>
+<h2>Campaigns:</h2>
 
-<section *ngFor="let campaignItem of allCampaignData">
-  <h3
-    style="margin-block-end: 0.25em; cursor: pointer; color: navy"
-    [routerLink]="['/campaign', campaignItem?.id]"
-  >
-    <img src="{{ campaignItem?.campaignPictureURL }}" style="width: 10vw">
-    <br>
-    {{ campaignItem.campaignName }}
-  </h3>
-  <ul>
-    <li *ngFor="let donationItem of campaignItem.donations">
-      <!-- Each span routes to a profile -->
-      <h5
-        style="
-          cursor: pointer;
-          color: royalblue;
-          margin-block-start: 0.25em;
-          margin-block-end: 0.25em;
-        "
-        [routerLink]="['/profile', donationItem?.donor.id]"
-      >
-        {{ donationItem.donor.firstName }} -
-        {{ donationItem.donationAmount | currency }}
-      </h5>
-    </li>
-  </ul>
+<section
+*ngFor="let campaignItem of allCampaignData"
+class="campaignInfoContainer">
+  <section class="campaignTitleAndImageContainer">
+    <h3 [routerLink]="['/campaign', campaignItem?.id]"
+    class="campaignHeader">
+      {{ campaignItem.campaignName }}
+    </h3>
+    <img src="{{ campaignItem?.campaignPictureURL }}" style="width: 100%" />
+  </section>
+  <section class="campaignDonorContainer">
+    <ul>
+      <h4 class="campaignSubheader">Donors</h4>
+      <li *ngFor="let donationItem of campaignItem.donations">
+        <!-- Each span routes to a profile -->
+        <h5 [routerLink]="['/profile', donationItem?.donor.id]">
+          {{ donationItem.donor.firstName }} -
+          {{ donationItem.donationAmount | currency }}
+        </h5>
+      </li>
+    </ul>
+  </section>
 </section>

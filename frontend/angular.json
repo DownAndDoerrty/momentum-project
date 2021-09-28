@@ -7,7 +7,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "sass",
+          "style": "scss",
           "skipTests": true
         },
         "@schematics/angular:class": {
@@ -46,7 +46,7 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.sass"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -104,7 +104,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.sass"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         },

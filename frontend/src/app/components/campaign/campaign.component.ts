@@ -10,7 +10,7 @@ import { Donation } from 'src/app/services/service-interfaces';
 @Component({
   selector: 'app-campaign',
   templateUrl: './campaign.component.html',
-  styleUrls: ['./campaign.component.sass'],
+  styleUrls: ['./campaign.component.scss'],
 })
 export class CampaignComponent implements OnInit {
   constructor(
