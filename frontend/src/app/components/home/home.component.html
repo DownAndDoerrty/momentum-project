@@ -1,9 +1,12 @@
 <p>Campaigns:</p>
+
 <section *ngFor="let campaignItem of allCampaignData">
   <h3
     style="margin-block-end: 0.25em; cursor: pointer; color: navy"
     [routerLink]="['/campaign', campaignItem?.id]"
   >
+    <img src="{{ campaignItem?.campaignPictureURL }}" style="width: 10vw">
+    <br>
     {{ campaignItem.campaignName }}
   </h3>
   <ul>
