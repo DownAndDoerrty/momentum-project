@@ -1,19 +1,17 @@
-<ul>
-  <li>{{ userProfile?.firstName }}</li>
-  <li>{{ userProfile?.lastName }}</li>
-  <li>{{ userProfile?.email }}</li>
+
+  <h1>{{ userProfile?.firstName }} {{ userProfile?.lastName }}</h1>
+  <h2>{{ userProfile?.email }}</h2>
   <ul *ngFor="let campaignItem of userProfile?.ownedCampaigns">
-    <li>{{ campaignItem.campaignName }}</li>
-    <ul *ngFor="let donationItem of campaignItem?.donations">
-      <li>
-        <span
-          >{{ donationItem?.donor.firstName }}:
-          {{ donationItem?.donationAmount | currency }}</span
-        >
-      </li>
-    </ul>
+    <li>Campaign: {{ campaignItem.campaignName }} </li>
+    <p>Donations:</p>
+    <ol>
+        <li *ngFor="let donationItem of campaignItem?.donations">
+          {{ donationItem?.donor.firstName }}:
+          {{ donationItem?.donationAmount | currency }}
+        </li>
+    </ol>
   </ul>
-</ul>
+
 <br />
 <br />
 <br />
